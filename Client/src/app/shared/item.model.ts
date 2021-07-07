@@ -1,2 +1,5 @@
-export class Item {
+export interface Item {
+  ItemId: number;
+  Name: string;
+  Price: number;
 }
