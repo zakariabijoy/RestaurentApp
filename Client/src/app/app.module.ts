@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderComponent } from './orders/order/order.component';
 import { OrderItemsComponent } from './orders/order-items/order-items.component';
-import { CustomerModel } from './shared/customer/customer.model';
 
 @NgModule({
   declarations: [
@@ -14,13 +13,9 @@ import { CustomerModel } from './shared/customer/customer.model';
     OrdersComponent,
     OrderComponent,
     OrderItemsComponent,
-    CustomerModel
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

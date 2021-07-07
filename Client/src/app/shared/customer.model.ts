@@ -1,4 +1,4 @@
-export interface Customer {
+export class Customer {
   CustomerId: number;
   Name: string;
 }
