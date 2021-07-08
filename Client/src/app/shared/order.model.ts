@@ -1,5 +1,5 @@
 export class Order {
-  OrderrId: number;
+  OrderId: number;
   OrderNo: string;
   CustomerId: number;
   Pmethod: string;
