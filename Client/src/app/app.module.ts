@@ -9,6 +9,7 @@ import { OrderItemsComponent } from './orders/order-items/order-items.component'
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    HttpClientModule
   ],
   entryComponents:[OrderItemsComponent],
   providers: [],
