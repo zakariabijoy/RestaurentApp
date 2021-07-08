@@ -1,4 +1,3 @@
-import { stringify } from '@angular/compiler/src/util';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Item } from 'src/app/shared/item.model';
@@ -15,6 +14,8 @@ import { OrderService } from 'src/app/shared/order.service';
 export class OrderItemsComponent implements OnInit {
   formData: OrderItem;
   itemList: Item[];
+  isValid: boolean = true;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<OrderItemsComponent>,
@@ -27,15 +28,22 @@ export class OrderItemsComponent implements OnInit {
       .getItemList()
       .subscribe((res) => (this.itemList = res as Item[]));
 
-    this.formData = {
-      OrderItemId: null,
-      OrderId: this.data.orderId,
-      ItemId: 0,
-      ItemName: '',
-      Price: 0,
-      Quantity: 0,
-      Total: 0,
-    };
+    if (this.data.orderItemIndex == null) {
+      this.formData = {
+        OrderItemId: null,
+        OrderId: this.data.orderId,
+        ItemId: 0,
+        ItemName: '',
+        Price: 0,
+        Quantity: 0,
+        Total: 0,
+      };
+    } else {
+      this.formData = Object.assign(
+        {},
+        this.orderSerice.orderItems[this.data.orderItemIndex]
+      );
+    }
   }
 
   updatePrice(event: any) {
@@ -57,7 +65,18 @@ export class OrderItemsComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    this.orderSerice.orderItems.push(form.value);
-    this.dialogRef.close();
+    if (this.validateForm(form.value)) {
+      if (this.data.orderItemIndex == null)
+        this.orderSerice.orderItems.push(form.value);
+      else this.orderSerice.orderItems[this.data.orderItemIndex] = form.value;
+      this.dialogRef.close();
+    }
+  }
+
+  validateForm(formData: OrderItem) {
+    this.isValid = true;
+    if (formData.ItemId == 0) this.isValid = false;
+    else if (formData.Quantity == 0) this.isValid = false;
+    return this.isValid;
   }
 }

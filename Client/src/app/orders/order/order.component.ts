@@ -27,12 +27,16 @@ export class OrderComponent implements OnInit {
     };
     this.orderService.orderItems = [];
   }
-  AddOrEditOrderItem(orderItemindex, orderId) {
+  AddOrEditOrderItem(orderItemIndex, orderId) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
     dialogConfig.width = '50%';
-    dialogConfig.data = { orderItemindex, orderId };
+    dialogConfig.data = { orderItemIndex, orderId };
     this.dialog.open(OrderItemsComponent, dialogConfig);
+  }
+
+  onDeleteOrderItem(orderItemId: number, index: number) {
+    this.orderService.orderItems.splice(index, 1);
   }
 }

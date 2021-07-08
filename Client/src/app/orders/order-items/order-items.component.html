@@ -31,6 +31,7 @@
       [(ngModel)]="formData.ItemId"
       class="form-control"
       (change)="updatePrice($event.target)"
+      [class.is-invalid]="!isValid && formData.ItemId == 0"
     >
       <option value="0">--select--</option>
       <option *ngFor="let item of itemList" value="{{ item.itemId }}">
@@ -63,6 +64,7 @@
         [(ngModel)]="formData.Quantity"
         class="form-control"
         (keyup)="updateTotal()"
+        [class.is-invalid]="!isValid && formData.Quantity == 0"
       />
     </div>
   </div>
