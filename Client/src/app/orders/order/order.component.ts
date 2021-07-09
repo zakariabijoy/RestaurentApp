@@ -33,10 +33,29 @@ export class OrderComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.width = '50%';
     dialogConfig.data = { orderItemIndex, orderId };
-    this.dialog.open(OrderItemsComponent, dialogConfig);
+    this.dialog
+      .open(OrderItemsComponent, dialogConfig)
+      .afterClosed()
+      .subscribe((res) => {
+        this.updateGrandTotal();
+      });
   }
 
   onDeleteOrderItem(orderItemId: number, index: number) {
     this.orderService.orderItems.splice(index, 1);
+    this.updateGrandTotal();
+  }
+
+  updateGrandTotal() {
+    this.orderService.formData.Gtotal = this.orderService.orderItems.reduce(
+      (prev, curr) => {
+        return prev + curr.Total;
+      },
+      0
+    );
+
+    this.orderService.formData.Gtotal = parseFloat(
+      this.orderService.formData.Gtotal.toFixed(2)
+    );
   }
 }
