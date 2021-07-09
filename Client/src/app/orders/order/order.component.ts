@@ -1,7 +1,8 @@
+import { identifierModuleUrl } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/shared/customer.model';
 import { CustomerService } from 'src/app/shared/customer.service';
@@ -22,11 +23,22 @@ export class OrderComponent implements OnInit {
     private dialog: MatDialog,
     private customerService: CustomerService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private currentRouter: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.resetForm();
+    let orderId = this.currentRouter.snapshot.paramMap.get('id');
+    if(orderId == null){
+      this.resetForm();
+    }
+    else{
+      this.orderService.getOrderById(parseInt(orderId)).subscribe(res => {
+        console.log(res);
+        this.orderService.formData = res.order;
+        this.orderService.orderItems = res.orderDetails;
+      });
+    }
     this.customerService
       .getCustomerList()
       .subscribe((res) => (this.customerList = res as Customer[]));
@@ -35,11 +47,12 @@ export class OrderComponent implements OnInit {
   resetForm(form?: NgForm) {
     if ((form = null)) form.resetForm();
     this.orderService.formData = {
-      orderId: null,
+      orderrId: null,
       orderNo: Math.floor(100000 + Math.random() * 900000).toString(),
       customerId: 0,
-      pMethod: '',
+      pmethod: '',
       gtotal: 0,
+      deletedOrderItemsIds:''
     };
     this.orderService.orderItems = [];
   }
@@ -58,6 +71,9 @@ export class OrderComponent implements OnInit {
   }
 
   onDeleteOrderItem(orderItemId: number, index: number) {
+    if(orderItemId !==null){
+      this.orderService.formData.deletedOrderItemsIds += orderItemId + ',';
+    }
     this.orderService.orderItems.splice(index, 1);
     this.updateGrandTotal();
   }
@@ -65,7 +81,7 @@ export class OrderComponent implements OnInit {
   updateGrandTotal() {
     this.orderService.formData.gtotal = this.orderService.orderItems.reduce(
       (prev, curr) => {
-        return prev + curr.Total;
+        return prev + curr.total;
       },
       0
     );

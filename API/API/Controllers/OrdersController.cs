@@ -29,48 +29,18 @@ namespace API.Controllers
 
         // GET: api/Orders/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Order>> GetOrder(long id)
+        public async Task<object> GetOrder(long id)
         {
             var order = await _context.Orders.FindAsync(id);
+            order.DeletedOrderItemsIds = "";
 
-            if (order == null)
-            {
-                return NotFound();
-            }
+            var orderDetails =await _context.OrderItems.Where(o => o.OrderId == id).Join(_context.Items, o => o.ItemId, i => i.ItemId, (o, i) => new { o.OrderId, o.OrderItemId, o.ItemId, ItemName= i.Name, i.Price , o.Quantity, Total = o.Quantity * i.Price}).ToListAsync();
 
-            return order;
+            return Ok(new { order, orderDetails });
+
         }
 
-        // PUT: api/Orders/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder(long id, Order order)
-        {
-            if (id != order.OrderrId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(order).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrderExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
+        
 
         // POST: api/Orders
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -80,12 +50,34 @@ namespace API.Controllers
             try
             {
                 //order table
-                _context.Orders.Add(order);
+                if(order.OrderrId == 0)
+                {
+                    _context.Orders.Add(order);
+                }
+                else
+                {
+                    _context.Entry(order).State = EntityState.Modified;
+                }
 
                 //orderitems table
                 foreach (var item in order.OrderItems)
                 {
-                    _context.OrderItems.Add(item);
+                    if (item.OrderItemId == 0)
+                    {
+                        _context.OrderItems.Add(item);
+                    }
+                    else
+                    {
+                        _context.Entry(item).State = EntityState.Modified;
+                    }
+                   
+                }
+
+                //delete for order items
+                foreach (var id in order.DeletedOrderItemsIds.Split(",").Where(x => x!=""))
+                {
+                    OrderItem x = _context.OrderItems.Find(Convert.ToInt64(id));
+                    _context.OrderItems.Remove(x);
                 }
                 await _context.SaveChangesAsync();
 

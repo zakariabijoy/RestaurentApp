@@ -16,11 +16,17 @@ export class OrderService {
     return this.http.get(environment.apiURL + '/Orders');
   }
 
+  getOrderById(id:number) :any {
+    return this.http.get(environment.apiURL + '/Orders/'+id);
+  }
+
   saveOrUpdateOrder() {
-    this.formData.orderId = 0;
-    this.orderItems.forEach((x) => {
-      x.OrderId = 0;
-      x.OrderItemId = 0;
+    if(this.formData.orderrId === null) this.formData.orderrId =0;
+    this.orderItems.forEach(x =>{
+      if(x.orderItemId === null){
+        x.orderItemId =0;
+        x.orderId = 0;
+      }
     });
     var body = {
       ...this.formData,

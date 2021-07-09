@@ -4,6 +4,9 @@
   *ngIf="orderService.formData"
   (submit)="onSubmit(form)"
 >
+<input type="hidden" name="orderrId"
+            #orderrId="ngModel"
+            [(ngModel)]="orderService.formData.orderrId">
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
@@ -13,7 +16,7 @@
             <div class="input-group-text">#</div>
           </div>
           <input
-            name="OrderNo"
+            name="orderNo"
             #orderNo="ngModel"
             [(ngModel)]="orderService.formData.orderNo"
             class="form-control"
@@ -24,7 +27,7 @@
       <div class="form-group">
         <label>Customer</label>
         <select
-          name="CustomerId"
+          name="customerId"
           #customerId="ngModel"
           [(ngModel)]="orderService.formData.customerId"
           class="form-control"
@@ -44,11 +47,11 @@
       <div class="form-group">
         <label>payment Method</label>
         <select
-          name="Pmethod"
-          #pMethod="ngModel"
-          [(ngModel)]="orderService.formData.pMethod"
+          name="pmethod"
+          #pmethod="ngModel"
+          [(ngModel)]="orderService.formData.pmethod"
           class="form-control"
-          [class.is-invalid]="!isValid && orderService.formData.pMethod === ''"
+          [class.is-invalid]="!isValid && orderService.formData.pmethod === ''"
         >
           <option value="">--select--</option>
           <option value="Cash">Cash</option>
@@ -62,7 +65,7 @@
             <div class="input-group-text">$</div>
           </div>
           <input
-            name="Gtotal"
+            name="gtotal"
             #gtotal="ngModel"
             [(ngModel)]="orderService.formData.gtotal"
             class="form-control"
@@ -81,7 +84,7 @@
       <th>Total</th>
       <th>
         <a
-          (click)="AddOrEditOrderItem(null, orderService.formData.orderId)"
+          (click)="AddOrEditOrderItem(null, orderService.formData.orderrId)"
           class="btn btn-sm btn-success text-white"
         >
           <i class="fa fa-plus"></i>Add Item</a
@@ -98,13 +101,13 @@
         </td>
       </tr>
       <tr *ngFor="let item of orderService.orderItems; let i = index">
-        <td>{{ item.ItemName }}</td>
-        <td>{{ item.Price }}</td>
-        <td>{{ item.Quantity }}</td>
-        <td>{{ item.Total }}</td>
+        <td>{{ item.itemName }}</td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.total }}</td>
         <td>
           <a
-            (click)="AddOrEditOrderItem(i, orderService.formData.orderId)"
+            (click)="AddOrEditOrderItem(i, orderService.formData.orderrId)"
             class="btn btn-sm btn-info text-white"
           >
             <i class="fa fa-pencil"></i

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { OrderService } from './../shared/order.service';
 
 @Component({
@@ -8,9 +9,13 @@ import { OrderService } from './../shared/order.service';
 })
 export class OrdersComponent implements OnInit {
   orderList
-  constructor(private orderService: OrderService) {}
+  constructor(private orderService: OrderService, private router:Router) {}
 
   ngOnInit(): void {
     this.orderService.getOrdersList().subscribe(res => this.orderList = res);
+  }
+
+  openForedit(orderId:number){
+    this.router.navigateByUrl('/order/edit/'+ orderId);
   }
 }

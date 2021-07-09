@@ -10,11 +10,11 @@
     </thead>
     <tbody>
         <tr *ngFor="let order of orderList">
-            <th>{{order.orderNo}}</th>
-            <td>{{order.customer}}</td>
-            <td>{{order.pmethod}}</td>
-            <td>{{order.gtotal}}</td>
-            <td></td>
+            <th (click) = "openForedit(order.orderrId)">{{order.orderNo}}</th>
+            <td (click) = "openForedit(order.orderrId)">{{order.customer}}</td>
+            <td (click) = "openForedit(order.orderrId)">{{order.pmethod}}</td>
+            <td (click) = "openForedit(order.orderrId)">{{order.gtotal}}</td>
+            <td ></td>
             
         </tr>
     </tbody>

@@ -30,13 +30,13 @@ export class OrderItemsComponent implements OnInit {
 
     if (this.data.orderItemIndex == null) {
       this.formData = {
-        OrderItemId: null,
-        OrderId: this.data.orderId,
-        ItemId: 0,
-        ItemName: '',
-        Price: 0,
-        Quantity: 0,
-        Total: 0,
+        orderItemId: null,
+        orderId: this.data.orderId,
+        itemId: 0,
+        itemName: '',
+        price: 0,
+        quantity: 0,
+        total: 0,
       };
     } else {
       this.formData = Object.assign(
@@ -48,19 +48,19 @@ export class OrderItemsComponent implements OnInit {
 
   updatePrice(event: any) {
     if (event.selectedIndex == 0) {
-      this.formData.Price = 0;
-      this.formData.ItemName = '';
+      this.formData.price = 0;
+      this.formData.itemName = '';
     } else {
-      this.formData.Price = this.itemList[event.selectedIndex - 1].price;
-      this.formData.ItemName = this.itemList[event.selectedIndex - 1].name;
+      this.formData.price = this.itemList[event.selectedIndex - 1].price;
+      this.formData.itemName = this.itemList[event.selectedIndex - 1].name;
     }
 
     this.updateTotal();
   }
 
   updateTotal() {
-    this.formData.Total = parseFloat(
-      (this.formData.Quantity * this.formData.Price).toFixed(2)
+    this.formData.total = parseFloat(
+      (this.formData.quantity * this.formData.price).toFixed(2)
     );
   }
 
@@ -75,8 +75,8 @@ export class OrderItemsComponent implements OnInit {
 
   validateForm(formData: OrderItem) {
     this.isValid = true;
-    if (formData.ItemId == 0) this.isValid = false;
-    else if (formData.Quantity == 0) this.isValid = false;
+    if (formData.itemId == 0) this.isValid = false;
+    else if (formData.quantity == 0) this.isValid = false;
     return this.isValid;
   }
 }
