@@ -7335,11 +7335,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\PROJECTS\\Asp.Net Core\\Asp.NetCoreWebApiWithAngular\\RestaurantMasterDetailsApp\\API\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\Zakaria\\Desktop\\Projects\\RestaurantMasterDetailsApp\\API\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "F:\\PROJECTS\\Asp.Net Core\\Asp.NetCoreWebApiWithAngular\\RestaurantMasterDetailsApp\\API\\API\\API.csproj",
+      "projectPath": "C:\\Users\\Zakaria\\Desktop\\Projects\\RestaurantMasterDetailsApp\\API\\API\\API.csproj",
       "packagesPath": "C:\\Users\\Zakaria\\.nuget\\packages\\",
-      "outputPath": "F:\\PROJECTS\\Asp.Net Core\\Asp.NetCoreWebApiWithAngular\\RestaurantMasterDetailsApp\\API\\API\\obj\\",
+      "outputPath": "C:\\Users\\Zakaria\\Desktop\\Projects\\RestaurantMasterDetailsApp\\API\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Zakaria\\AppData\\Roaming\\NuGet\\NuGet.Config",

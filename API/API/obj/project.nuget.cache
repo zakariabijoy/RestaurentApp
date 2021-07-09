@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "F4Vk6+FC0WxzqI7NrcNjT98jLA5ndzj4hwxOCTj254D0kozE8z8UUOPB7sJm9YegKFnfJz+Nzm3g9EgmD78J8g==",
+  "dgSpecHash": "5RAgzYF+UZDX1XwePT8KufK/QpZec2/nBdfjg2VAiV6Y0F8/6xWT0xO+TVrY4G9ZmlZ58s1V6dUwGyWMd9o93A==",
   "success": true,
-  "projectFilePath": "F:\\PROJECTS\\Asp.Net Core\\Asp.NetCoreWebApiWithAngular\\RestaurantMasterDetailsApp\\API\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\Zakaria\\Desktop\\Projects\\RestaurantMasterDetailsApp\\API\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Zakaria\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Zakaria\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

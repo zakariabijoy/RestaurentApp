@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/shared/customer.model';
 import { CustomerService } from 'src/app/shared/customer.service';
 import { OrderService } from 'src/app/shared/order.service';
@@ -18,7 +20,9 @@ export class OrderComponent implements OnInit {
   constructor(
     public orderService: OrderService,
     private dialog: MatDialog,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -78,8 +82,10 @@ export class OrderComponent implements OnInit {
   }
   onSubmit(form: NgForm) {
     if (this.validateForm()) {
-      this.orderService.saveOrUpdateOrder().subscribe(res =>{
+      this.orderService.saveOrUpdateOrder().subscribe((res) => {
         this.resetForm();
+        this.toastr.success('Submitted Successfully', 'RestaurentApp');
+        this.router.navigateByUrl('/orders');
       });
     }
   }
