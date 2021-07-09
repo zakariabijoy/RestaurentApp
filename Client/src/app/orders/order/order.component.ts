@@ -13,12 +13,19 @@ import { OrderItemsComponent } from '../order-items/order-items.component';
 })
 export class OrderComponent implements OnInit {
   customerList: Customer[];
+  isValid: boolean = true;
 
-  constructor(public orderService: OrderService, private dialog: MatDialog, private customerService: CustomerService) {}
+  constructor(
+    public orderService: OrderService,
+    private dialog: MatDialog,
+    private customerService: CustomerService
+  ) {}
 
   ngOnInit(): void {
     this.resetForm();
-    this.customerService.getCustomerList().subscribe(res => this.customerList = res as Customer[] );
+    this.customerService
+      .getCustomerList()
+      .subscribe((res) => (this.customerList = res as Customer[]));
   }
 
   resetForm(form?: NgForm) {
@@ -62,5 +69,16 @@ export class OrderComponent implements OnInit {
     this.orderService.formData.Gtotal = parseFloat(
       this.orderService.formData.Gtotal.toFixed(2)
     );
+  }
+  validateForm() {
+    this.isValid = true;
+    if (this.orderService.formData.CustomerId == 0) this.isValid = false;
+    else if (this.orderService.orderItems.length == 0) this.isValid = false;
+    return this.isValid;
+  }
+  onSubmit(form:NgForm){
+    if(this.validateForm()){
+      
+    }
   }
 }

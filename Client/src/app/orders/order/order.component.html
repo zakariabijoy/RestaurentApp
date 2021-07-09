@@ -1,4 +1,9 @@
-<form #form="ngForm" autocomplete="off" *ngIf="orderService.formData">
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="orderService.formData"
+  (submit)="onSubmit(form)"
+>
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
@@ -23,6 +28,7 @@
           #CustomerId="ngModel"
           [(ngModel)]="orderService.formData.CustomerId"
           class="form-control"
+          [class.is-invalid]="!isValid && orderService.formData.CustomerId == 0"
         >
           <option value="0">--select--</option>
           <option
@@ -42,10 +48,11 @@
           #Pmethod="ngModel"
           [(ngModel)]="orderService.formData.Pmethod"
           class="form-control"
+          [class.is-invalid]="!isValid && orderService.formData.Pmethod === ''"
         >
-          <option value="0">--select--</option>
-          <option value="1">--Cash--</option>
-          <option value="2">--Card--</option>
+          <option value="">--select--</option>
+          <option value="Cash">Cash</option>
+          <option value="Card">Card</option>
         </select>
       </div>
       <div class="form-group">
@@ -82,7 +89,10 @@
       </th>
     </thead>
     <tbody>
-      <tr *ngIf="orderService.orderItems.length == 0">
+      <tr
+        *ngIf="orderService.orderItems.length == 0"
+        [class.text-danger]="!isValid && orderService.orderItems.length == 0"
+      >
         <td class="font-italic text-center" colspan="5">
           No Food item selected for this order
         </td>
