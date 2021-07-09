@@ -14,8 +14,8 @@
           </div>
           <input
             name="OrderNo"
-            #OrderNo="ngModel"
-            [(ngModel)]="orderService.formData.OrderNo"
+            #orderNo="ngModel"
+            [(ngModel)]="orderService.formData.orderNo"
             class="form-control"
             readonly
           />
@@ -25,10 +25,10 @@
         <label>Customer</label>
         <select
           name="CustomerId"
-          #CustomerId="ngModel"
-          [(ngModel)]="orderService.formData.CustomerId"
+          #customerId="ngModel"
+          [(ngModel)]="orderService.formData.customerId"
           class="form-control"
-          [class.is-invalid]="!isValid && orderService.formData.CustomerId == 0"
+          [class.is-invalid]="!isValid && orderService.formData.customerId == 0"
         >
           <option value="0">--select--</option>
           <option
@@ -45,10 +45,10 @@
         <label>payment Method</label>
         <select
           name="Pmethod"
-          #Pmethod="ngModel"
-          [(ngModel)]="orderService.formData.Pmethod"
+          #pMethod="ngModel"
+          [(ngModel)]="orderService.formData.pMethod"
           class="form-control"
-          [class.is-invalid]="!isValid && orderService.formData.Pmethod === ''"
+          [class.is-invalid]="!isValid && orderService.formData.pMethod === ''"
         >
           <option value="">--select--</option>
           <option value="Cash">Cash</option>
@@ -63,8 +63,8 @@
           </div>
           <input
             name="Gtotal"
-            #Gtotal="ngModel"
-            [(ngModel)]="orderService.formData.Gtotal"
+            #gtotal="ngModel"
+            [(ngModel)]="orderService.formData.gtotal"
             class="form-control"
             readonly
           />
@@ -81,7 +81,7 @@
       <th>Total</th>
       <th>
         <a
-          (click)="AddOrEditOrderItem(null, orderService.formData.OrderId)"
+          (click)="AddOrEditOrderItem(null, orderService.formData.orderId)"
           class="btn btn-sm btn-success text-white"
         >
           <i class="fa fa-plus"></i>Add Item</a
@@ -104,14 +104,14 @@
         <td>{{ item.Total }}</td>
         <td>
           <a
-            (click)="AddOrEditOrderItem(i, orderService.formData.OrderId)"
+            (click)="AddOrEditOrderItem(i, orderService.formData.orderId)"
             class="btn btn-sm btn-info text-white"
           >
             <i class="fa fa-pencil"></i
           ></a>
 
           <a
-            (click)="onDeleteOrderItem(item.OrderItemId, i)"
+            (click)="onDeleteOrderItem(item.orderItemId, i)"
             class="btn btn-sm btn-danger ml-1 text-white"
           >
             <i class="fa fa-trash"></i

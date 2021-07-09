@@ -77,10 +77,26 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Order>> PostOrder(Order order)
         {
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
+            try
+            {
+                //order table
+                _context.Orders.Add(order);
 
-            return CreatedAtAction("GetOrder", new { id = order.OrderrId }, order);
+                //orderitems table
+                foreach (var item in order.OrderItems)
+                {
+                    _context.OrderItems.Add(item);
+                }
+                await _context.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
 
         // DELETE: api/Orders/5

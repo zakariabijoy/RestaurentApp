@@ -1,7 +1,7 @@
 export class Order {
-  OrderId: number;
-  OrderNo: string;
-  CustomerId: number;
-  Pmethod: string;
-  Gtotal: number;
+  orderId: number;
+  orderNo: string;
+  customerId: number;
+  pMethod: string;
+  gtotal: number;
 }

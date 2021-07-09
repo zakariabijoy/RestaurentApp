@@ -31,11 +31,11 @@ export class OrderComponent implements OnInit {
   resetForm(form?: NgForm) {
     if ((form = null)) form.resetForm();
     this.orderService.formData = {
-      OrderId: null,
-      OrderNo: Math.floor(100000 + Math.random() * 900000).toString(),
-      CustomerId: 0,
-      Pmethod: '',
-      Gtotal: 0,
+      orderId: null,
+      orderNo: Math.floor(100000 + Math.random() * 900000).toString(),
+      customerId: 0,
+      pMethod: '',
+      gtotal: 0,
     };
     this.orderService.orderItems = [];
   }
@@ -59,26 +59,28 @@ export class OrderComponent implements OnInit {
   }
 
   updateGrandTotal() {
-    this.orderService.formData.Gtotal = this.orderService.orderItems.reduce(
+    this.orderService.formData.gtotal = this.orderService.orderItems.reduce(
       (prev, curr) => {
         return prev + curr.Total;
       },
       0
     );
 
-    this.orderService.formData.Gtotal = parseFloat(
-      this.orderService.formData.Gtotal.toFixed(2)
+    this.orderService.formData.gtotal = parseFloat(
+      this.orderService.formData.gtotal.toFixed(2)
     );
   }
   validateForm() {
     this.isValid = true;
-    if (this.orderService.formData.CustomerId == 0) this.isValid = false;
+    if (this.orderService.formData.customerId == 0) this.isValid = false;
     else if (this.orderService.orderItems.length == 0) this.isValid = false;
     return this.isValid;
   }
-  onSubmit(form:NgForm){
-    if(this.validateForm()){
-      
+  onSubmit(form: NgForm) {
+    if (this.validateForm()) {
+      this.orderService.saveOrUpdateOrder().subscribe(res =>{
+        this.resetForm();
+      });
     }
   }
 }
