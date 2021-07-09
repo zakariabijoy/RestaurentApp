@@ -12,6 +12,10 @@ export class OrderService {
   orderItems: OrderItem[];
   constructor(private http: HttpClient) {}
 
+  getOrdersList() {
+    return this.http.get(environment.apiURL + '/Orders');
+  }
+
   saveOrUpdateOrder() {
     this.formData.orderId = 0;
     this.orderItems.forEach((x) => {

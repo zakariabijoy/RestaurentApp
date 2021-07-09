@@ -22,9 +22,9 @@ namespace API.Controllers
 
         // GET: api/Orders
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
+        public async Task<Object> GetOrders()
         {
-            return await _context.Orders.ToListAsync();
+            return await _context.Orders.Join(_context.Customers, o =>o.CustomerId,c=>c.CustomerId,(o,c)=> new {o.OrderrId,o.OrderNo,Customer=c.Name,o.Pmethod,o.Gtotal }).ToListAsync();
         }
 
         // GET: api/Orders/5
