@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Customer } from 'src/app/shared/customer.model';
+import { CustomerService } from 'src/app/shared/customer.service';
 import { OrderService } from 'src/app/shared/order.service';
 import { OrderItemsComponent } from '../order-items/order-items.component';
 
@@ -10,10 +12,13 @@ import { OrderItemsComponent } from '../order-items/order-items.component';
   styleUrls: ['./order.component.css'],
 })
 export class OrderComponent implements OnInit {
-  constructor(public orderService: OrderService, private dialog: MatDialog) {}
+  customerList: Customer[];
+
+  constructor(public orderService: OrderService, private dialog: MatDialog, private customerService: CustomerService) {}
 
   ngOnInit(): void {
     this.resetForm();
+    this.customerService.getCustomerList().subscribe(res => this.customerList = res as Customer[] );
   }
 
   resetForm(form?: NgForm) {
