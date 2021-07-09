@@ -95,16 +95,18 @@ namespace API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(long id)
         {
-            var order = await _context.Orders.FindAsync(id);
-            if (order == null)
+            var order = await _context.Orders.Include(o =>o.OrderItems).SingleOrDefaultAsync(x => x.OrderrId == id);
+
+            foreach (var item in order.OrderItems.ToList())
             {
-                return NotFound();
+                _context.OrderItems.Remove(item);
+
             }
 
             _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
 
         private bool OrderExists(long id)

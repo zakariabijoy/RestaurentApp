@@ -35,4 +35,8 @@ export class OrderService {
     console.log(body);
     return this.http.post(environment.apiURL + '/Orders', body);
   }
+
+  deleteOrder(id:number) {
+    return this.http.delete(environment.apiURL + '/Orders/'+id);
+  }
 }

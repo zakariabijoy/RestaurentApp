@@ -14,7 +14,9 @@
             <td (click) = "openForedit(order.orderrId)">{{order.customer}}</td>
             <td (click) = "openForedit(order.orderrId)">{{order.pmethod}}</td>
             <td (click) = "openForedit(order.orderrId)">{{order.gtotal}}</td>
-            <td ></td>
+            <td >
+                <a (click)=onOrderdelete(order.orderrId) class="btn btn-outline-danger" > <i class="fa fa-trash"></i> </a>
+            </td>
             
         </tr>
     </tbody>
